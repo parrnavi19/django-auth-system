@@ -1,0 +1,43 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div style="width: 100%; max-width: 900px;">
+    <div class="auth-header" style="text-align: left; margin-bottom: 2rem;">
+        <h2>User Overview</h2>
+        <p>Authenticated session management panel</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert-toast alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="dashboard-grid">
+        <div class="stat-card">
+            <h4>AUTHENTICATED USER</h4>
+            <div class="value">{{ user.username }}</div>
+        </div>
+
+        <div class="stat-card">
+            <h4>ACCOUNT ID</h4>
+            <div class="value">#00{{ user.id }}</div>
+        </div>
+
+        <div class="stat-card">
+            <h4>SESSION STATUS</h4>
+            <div class="value" style="color: #10b981;">Active</div>
+        </div>
+    </div>
+
+    <div class="auth-card" style="max-width: 100%; margin-top: 1.5rem;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Security Protocol Information</h3>
+        <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">
+            This session is authenticated using Django's session cookie infrastructure (`sessionid`). Passwords are standard-encrypted using PBKDF2 with SHA256 hashes inside SQLite database.
+        </p>
+        <div style="margin-top: 1.5rem;">
+            <a href="{% url 'logout' %}" class="btn-primary" style="display: inline-block; width: auto; padding: 0.75rem 1.5rem; text-decoration: none; background: #ef4444; box-shadow: none;">Logout Session</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureAuth Portal</title>
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand-logo">
+            <span>⚡ SecureAuth</span>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                <span style="color: var(--text-secondary); margin-right: 1rem; font-size: 0.9rem;">
+                    Account: <strong style="color: var(--text-primary);">{{ user.username }}</strong>
+                </span>
+                <a href="{% url 'logout' %}" style="color: #ef4444; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="auth-container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{% static 'accounts/script.js' %}"></script>
+</body>
+</html>

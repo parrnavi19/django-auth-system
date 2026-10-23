@@ -1,0 +1,37 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="auth-card">
+    <div class="auth-header">
+        <h2>Create Account</h2>
+        <p>Set up your account credentials below</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert-toast alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <div class="input-wrapper">
+                    {{ field }}
+                </div>
+                {% for error in field.errors %}
+                    <span style="color: #ef4444; font-size: 0.78rem; display: block; margin-top: 4px;">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-primary">Register Account</button>
+    </form>
+
+    <div class="footer-link">
+        Already registered? <a href="{% url 'login' %}">Sign In</a>
+    </div>
+</div>
+{% endblock %}
